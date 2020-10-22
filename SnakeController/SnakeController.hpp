@@ -9,6 +9,7 @@
 class Event;
 class IPort;
 
+// Test comment
 namespace Snake
 {
 struct ConfigurationError : std::logic_error
