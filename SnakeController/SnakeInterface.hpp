@@ -13,6 +13,14 @@ enum Direction
     Direction_RIGHT = 0b11
 };
 
+//declared Segment as struct here instead of SnakeController.hpp
+struct Segment
+{
+    int x;
+    int y;
+    int ttl;
+};
+
 struct DirectionInd
 {
     static constexpr std::uint32_t MESSAGE_ID = 0x10;

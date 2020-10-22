@@ -31,14 +31,15 @@ public:
     Controller& operator=(Controller const& p_rhs) = delete;
 
     void receive(std::unique_ptr<Event> e) override;
+    Segment calculateNewHead(Segment currenthead);
 
 private:
-    struct Segment
-    {
-        int x;
-        int y;
-        int ttl;
-    };
+     // struct Segment
+     // {
+     //     int x;
+     //     int y;
+     //     int ttl;
+     // };
 
     IPort& m_displayPort;
     IPort& m_foodPort;

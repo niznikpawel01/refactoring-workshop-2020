@@ -63,6 +63,14 @@ Controller::Controller(IPort& p_displayPort, IPort& p_foodPort, IPort& p_scorePo
     }
 }
 
+Segment Controller::calculateNewHead(Segment currenthead){
+  Segment newHead;
+  newHead.x = currenthead.x + ((m_currentDirection & 0b01) ? (m_currentDirection & 0b10) ? 1 : -1 : 0);
+  newHead.y = currenthead.y + (not (m_currentDirection & 0b01) ? (m_currentDirection & 0b10) ? 1 : -1 : 0);
+  newHead.ttl = currenthead.ttl;
+  return newHead;
+}
+
 void Controller::receive(std::unique_ptr<Event> e)
 {
     try {
@@ -70,10 +78,7 @@ void Controller::receive(std::unique_ptr<Event> e)
 
         Segment const& currentHead = m_segments.front();
 
-        Segment newHead;
-        newHead.x = currentHead.x + ((m_currentDirection & 0b01) ? (m_currentDirection & 0b10) ? 1 : -1 : 0);
-        newHead.y = currentHead.y + (not (m_currentDirection & 0b01) ? (m_currentDirection & 0b10) ? 1 : -1 : 0);
-        newHead.ttl = currentHead.ttl;
+        Segment newHead = calculateNewHead(currentHead);
 
         bool lost = false;
 
