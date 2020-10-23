@@ -5,6 +5,12 @@
 namespace Snake
 {
 
+struct Segment
+{
+      int x;
+      int y;
+};
+
 enum Direction
 {
     Direction_UP    = 0b00,
