@@ -2,7 +2,7 @@
 
 #include <algorithm>
 #include <sstream>
-
+#include <iostream>
 #include "EventT.hpp"
 #include "IPort.hpp"
 
@@ -213,25 +213,37 @@ Controller::Segment Controller::getNewHead() const
     return newHead;
 }
 
+
 void Controller::receive(std::unique_ptr<Event> e)
 {
-    try {
-        handleTimePassed(*dynamic_cast<EventT<TimeoutInd> const&>(*e));
-    } catch (std::bad_cast&) {
-        try {
-            handleDirectionChange(*dynamic_cast<EventT<DirectionInd> const&>(*e));
-        } catch (std::bad_cast&) {
-            try {
-                handleFoodPositionChange(*dynamic_cast<EventT<FoodInd> const&>(*e));
-            } catch (std::bad_cast&) {
-                try {
-                    handleNewFood(*dynamic_cast<EventT<FoodResp> const&>(*e));
-                } catch (std::bad_cast&) {
-                    throw UnexpectedEventException();
-                }
-            }
-        }
-    }
-}
 
+    std::cout<<"e:getMessageId: " << e->getMessageId();
+    TimeoutInd timeoutevent;
+    switch (e->getMessageId()) {
+      //TimeoutInd
+      case 0x20:
+    //  timeoutevent= ;
+      //handleTimePassed(*dynamic_cast<EventT<TimeoutInd> const&>(*e));
+
+      break;
+      //DirectionInd
+      case 0x10:
+      //handleDirectionChange(*dynamic_cast<EventT<DirectionInd> const&>(*e));
+
+      break;
+      //FoodInd
+      case 0x40:
+      //handleFoodPositionChange(*dynamic_cast<EventT<FoodInd> const&>(*e));
+
+      break;
+      //FoodResp
+      case 0x42:
+      //handleNewFood(*dynamic_cast<EventT<FoodResp> const&>(*e));
+
+
+      default:
+      break;
+    }
+
+}
 } // namespace Snake

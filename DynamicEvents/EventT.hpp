@@ -18,7 +18,6 @@ public:
     {}
 
     EventT(EventT&&) = default;
-
     EventT(EventT<T> const&) = delete;
     EventT& operator=(EventT<T> const&) = delete;
 
